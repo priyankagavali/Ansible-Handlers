@@ -1,3 +1,3 @@
 # Ansible-Handlers
 
-How to achieve Iempotence while restarting thr HTTPD service In Ansible
+How to achieve Idempotence while restarting the HTTPD service In Ansible
