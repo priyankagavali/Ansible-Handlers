@@ -1,0 +1,49 @@
+- hosts: namenode
+  tasks:
+    - file:
+        state: directory  
+        path: "/dvd"    
+    - mount:
+        src: "/dev/cdrom"
+        path: "/dvd"
+        state: mounted
+        fstype: "iso9660"      
+              
+    - yum_repository:
+        baseurl: "/dvd/AppStream"
+        gpgcheck: no
+        name: "appstream"
+        description: "my_yum_appstream"
+    - yum_repository:
+        baseurl: "/dvd/BaseOS"
+        gpgcheck: no
+        name: "baseos"
+        description: "my_yum_baseos"
+    
+
+    - package: 
+        name: "httpd"
+        state: present
+
+    - copy:
+        content: "idempotence retained...!!"
+        dest: "/var/www/html/index.html"
+
+    - name: "start the service"
+      service:
+        name: "httpd"
+        state: started
+              
+
+    - firewalld:
+        port : 80/tcp
+        state : enabled
+        permanent: no
+        immediate: yes   
+
+ 
+    - name: "restarting httpd service"      
+      service:
+        name: "httpd"
+        state: restarted        
+       
