@@ -28,6 +28,7 @@
     - copy:
         content: "idempotence retained...!!"
         dest: "/var/www/html/index.html"
+        
 
     - name: "start the service"
       service:
@@ -41,7 +42,7 @@
         permanent: no
         immediate: yes   
 
- 
+ handlers:
     - name: "restarting httpd service"      
       service:
         name: "httpd"
